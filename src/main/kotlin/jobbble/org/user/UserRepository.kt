@@ -1,4 +1,4 @@
-package jobbble.org.jobbbleserver
+package jobbble.org.user
 
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository

@@ -1,4 +1,4 @@
-package jobbble.org.jobbbleserver
+package jobbble.org.user
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
