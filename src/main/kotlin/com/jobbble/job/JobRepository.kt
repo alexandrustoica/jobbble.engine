@@ -1,4 +1,8 @@
 package com.jobbble.job
 
-class JobRepository {
-}
+import org.bson.types.ObjectId
+import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface JobRepository: MongoRepository<Job, ObjectId>
