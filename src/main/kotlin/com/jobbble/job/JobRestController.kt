@@ -27,4 +27,20 @@ class JobRestController {
                     ?.let { ResponseEntity.ok(it) }
                     ?: ResponseEntity.badRequest().body(job)
 
+    @PutMapping("/apply")
+    @Secured(value = ["ROLE_HR", "ROLE_STUDENT"])
+    fun apply(@RequestBody job: Job,
+              @AuthenticationPrincipal user: User): ResponseEntity<Job> =
+            service.apply(job, user)
+                    ?.let { ResponseEntity.ok(it) }
+                    ?: ResponseEntity.badRequest().body(job)
+
+    @PutMapping("/unapply")
+    @Secured(value = ["ROLE_HR", "ROLE_STUDENT"])
+    fun unapply(@RequestBody job: Job,
+                @AuthenticationPrincipal user: User): ResponseEntity<Job> =
+            service.unapply(job, user)
+                    ?.let { ResponseEntity.ok(it) }
+                    ?: ResponseEntity.badRequest().body(job)
+
 }

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.PersistenceConstructor
 import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
+import java.util.*
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,6 +21,7 @@ data class Job
         val location: String = "New York",
         val text: String = "Default",
         val position: String = "Developer",
+        val createdBy: Calendar = Calendar.getInstance(),
         @JsonIgnore @DBRef private val author: User = User(),
         @JsonIgnore @DBRef private val applicants: List<User> = listOf()) {
 
