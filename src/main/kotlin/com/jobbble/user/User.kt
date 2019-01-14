@@ -19,12 +19,12 @@ data class User
         @JsonIgnore @Id val id: ObjectId = ObjectId(),
         private val username: String = "default",
         private val password: String = "default",
-        private val name: String = "John",
-        private val profileImageUrl: String = "",
-        private val age: String = "",
+        val name: String = "John",
+        val profileImageUrl: String = "",
+        val age: String = "",
         @JsonIgnore @DBRef private val skills: List<Skill> = listOf(),
         private val role: UserRole = UserRole.STUDENT) : UserDetails {
-
+    
     override fun isCredentialsNonExpired(): Boolean = true
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
