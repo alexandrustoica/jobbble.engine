@@ -20,7 +20,14 @@ class JobService {
                     .let { repository.save(it) }
 
     fun findBy(id: String): Job? =
-             repository.findByIdEquals(ObjectId(id))
+            repository.findByIdEquals(ObjectId(id))
+
+    fun delete(id: String): Job? {
+        val job = repository.findByIdEquals(ObjectId(id))
+        job?.let { repository.delete(job) }
+        return job
+    }
+
 
     fun unapply(job: Job, candidate: User): Job? =
             job.copy(applicants = job.applicants()
