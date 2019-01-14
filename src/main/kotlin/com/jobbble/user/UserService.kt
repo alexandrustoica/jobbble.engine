@@ -2,6 +2,7 @@ package com.jobbble.user
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -38,5 +39,8 @@ class UserService : UserDetailsService {
                     Date(System.currentTimeMillis() + expirationTime))
             .signWith(SignatureAlgorithm.HS512, "test".toByteArray())
             .compact()
+
+    fun findBy(id: String): User? =
+            repository.findByIdEquals(ObjectId(id))
 
 }

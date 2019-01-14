@@ -19,12 +19,13 @@ data class User
         @JsonIgnore @Id val id: ObjectId = ObjectId(),
         private val username: String = "default",
         private val password: String = "default",
+        val email: String = "john@gmail.com",
         val name: String = "John",
         val profileImageUrl: String = "",
         val age: String = "",
         @JsonIgnore @DBRef private val skills: List<Skill> = listOf(),
         private val role: UserRole = UserRole.STUDENT) : UserDetails {
-    
+
     override fun isCredentialsNonExpired(): Boolean = true
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
@@ -37,7 +38,9 @@ data class User
             SimpleGrantedAuthority(
                     UserRole.HR.toString()))
 
+    @JsonIgnore
     override fun getPassword(): String = password
+
     override fun getUsername(): String = username
 
     @JsonProperty("skills")
