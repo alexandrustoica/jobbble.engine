@@ -55,4 +55,11 @@ class JobRestController {
                     ?.let { ResponseEntity.ok(it) }
                     ?: ResponseEntity.badRequest().body(Job())
 
+    @DeleteMapping("/{id}")
+    @Secured(value = ["ROLE_HR", "ROLE_STUDENT"])
+    fun delete(@PathVariable("id") jobId: String): ResponseEntity<Job> =
+            service.delete(jobId)
+                    ?.let { ResponseEntity.ok(it)}
+                    ?: ResponseEntity.notFound().build<Job>()
+
 }

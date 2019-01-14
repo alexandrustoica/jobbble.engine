@@ -18,6 +18,7 @@ data class User
 @PersistenceConstructor constructor(
         @JsonIgnore @Id val id: ObjectId = ObjectId(),
         private val username: String = "default",
+        @JsonProperty("password")
         private val password: String = "default",
         val email: String = "john@gmail.com",
         val name: String = "John",
