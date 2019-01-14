@@ -24,6 +24,6 @@ class JobService {
 
     fun unapply(job: Job, candidate: User): Job? =
             job.copy(applicants = job.applicants()
-                    .filter { it.id() == candidate.id() })
+                    .filter { it.id() != candidate.id() })
                     .let { repository.save(it) }
 }
