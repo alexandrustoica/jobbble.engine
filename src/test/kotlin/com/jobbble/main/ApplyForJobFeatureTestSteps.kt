@@ -9,16 +9,16 @@ import com.jobbble.user.User
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
-import org.hamcrest.Matchers.contains
+import org.bson.types.ObjectId
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
-import org.mockito.InjectMocks
-import org.mockito.Mock
+import org.mockito.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
 import org.springframework.context.annotation.ComponentScan
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.*
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 
@@ -27,7 +27,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 @DataMongoTest(excludeAutoConfiguration =
 [EmbeddedMongoAutoConfiguration::class])
 @ComponentScan(basePackages = ["com.jobbble.job"])
-class AddJobFeatureTestSteps {
+class ApplyForJobFeatureTestSteps {
 
     @InjectMocks
     private lateinit var service: JobService
@@ -35,24 +35,24 @@ class AddJobFeatureTestSteps {
     @Mock
     private lateinit var repository: JobRepository
 
-    private lateinit var job: Job
+    private val job: Job = Job()
+    private val expected: User = User()
+    private var result: Job? = null
 
-    @Given("^I create a new job$")
-    fun `I create a new job`() {
+    @Given("^I have a job from my database$")
+    fun `I have a job from my database`() {
         MockitoAnnotations.initMocks(this)
-        this.job = Job().copy(author = User())
+        `when`(repository.save(any<Job>()))
+                .thenAnswer(AdditionalAnswers.returnsFirstArg<Job>())
     }
 
-    @When("^I save my job$")
-    fun `I save my job`() {
-        Mockito.`when`(repository.insert(Mockito.any<Job>())).thenReturn(job)
-        service.insert(job)
+    @When("^I apply for that particular job$")
+    fun `I apply for that particular job`() {
+        result = service.apply(job, expected)
     }
 
-    @Then("^I have a job in my database$")
-    fun `I have a job in my database`() {
-        Mockito.`when`(repository.findAll()).thenReturn(listOf(job))
-        val jobs = service.all()
-        assertThat(jobs, contains(job))
+    @Then("^I should be listed as candidate on the job$")
+    fun `I should be listed as candidate on the job`() {
+        assertThat(result?.applicants()?.get(0), `is`(expected))
     }
 }
