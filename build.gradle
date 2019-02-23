@@ -26,6 +26,18 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+
 dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.0'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
