@@ -28,7 +28,6 @@ class JobService {
         return job
     }
 
-
     fun unapply(job: Job, candidate: User): Job? =
             job.copy(applicants = job.applicants()
                     .filter { it.id() != candidate.id() })

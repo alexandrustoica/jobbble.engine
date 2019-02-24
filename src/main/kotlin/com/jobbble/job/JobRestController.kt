@@ -36,8 +36,6 @@ class JobRestController {
                     ?.let { ResponseEntity.ok(it) }
                     ?: ResponseEntity.badRequest().body(Job())
 
-
-
     @PutMapping("/unapply/{id}")
     @Secured(value = ["ROLE_HR", "ROLE_STUDENT"])
     fun unapply(@PathVariable("id") jobId: String,
@@ -46,7 +44,6 @@ class JobRestController {
                     ?.let { service.unapply(it, user) }
                     ?.let { ResponseEntity.ok(it) }
                     ?: ResponseEntity.badRequest().body(Job())
-
 
     @GetMapping("/{id}")
     @Secured(value = ["ROLE_HR", "ROLE_STUDENT"])

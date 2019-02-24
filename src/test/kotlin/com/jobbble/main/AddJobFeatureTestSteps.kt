@@ -13,14 +13,12 @@ import org.hamcrest.Matchers.contains
 import org.junit.Assert.assertThat
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
 import org.springframework.context.annotation.ComponentScan
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 
 
 @SpringBootTest(classes = [MainApplication::class])
