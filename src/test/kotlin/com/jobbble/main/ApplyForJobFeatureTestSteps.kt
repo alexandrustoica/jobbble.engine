@@ -9,18 +9,14 @@ import com.jobbble.user.User
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
-import org.bson.types.ObjectId
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.mockito.*
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
 import org.springframework.context.annotation.ComponentScan
 import org.mockito.Mockito.*
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 
 
 @SpringBootTest(classes = [MainApplication::class])

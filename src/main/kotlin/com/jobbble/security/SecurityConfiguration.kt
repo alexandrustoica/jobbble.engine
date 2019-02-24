@@ -23,19 +23,23 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var repository: UserRepository
+
     @Bean
     fun service(): UserDetailsService {
         return service
     }
+
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(service).passwordEncoder(
                 BCryptPasswordEncoder())
     }
+
     override fun configure(http: HttpSecurity) {
         http.cors().and()
                 .sessionManagement().sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS).and()
-                .csrf().disable().exceptionHandling().accessDeniedPage("/access-denied").and()
+                .csrf().disable().exceptionHandling()
+                .accessDeniedPage("/access-denied").and()
                 .authorizeRequests()
                 .antMatchers("/api/login/*").permitAll()
                 .antMatchers("/login/*").permitAll()
@@ -44,10 +48,10 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .anyRequest().authenticated().and()
                 .addFilter(JsonWebTokenAuthorizationFilter(
                         authenticationManager(), repository))
-                .addFilter(
-                        JsonWebTokenAuthenticationFilter(
+                .addFilter(JsonWebTokenAuthenticationFilter(
                                 authenticationManager(), service))
-                .csrf().disable().exceptionHandling().accessDeniedPage("/access-denied").and()
+                .csrf().disable().exceptionHandling()
+                .accessDeniedPage("/access-denied").and()
                 .httpBasic()
     }
 }

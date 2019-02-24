@@ -36,11 +36,16 @@ class JsonWebTokenAuthorizationFilter(
                 .setSigningKey("test".toByteArray())
                 .parseClaimsJws(token.replace("Bearer ", ""))
                 .body.subject ?: ""
-        return if (username != "") userRepository.findByUsername(username)
-                .let {
-                    UsernamePasswordAuthenticationToken(
-                            it, it?.password, it?.authorities)
-                }
-        else null
+        return when (username) {
+            "" -> findTokenBy(username)
+            else -> null
+        }
     }
+
+    private fun findTokenBy(username: String):
+            UsernamePasswordAuthenticationToken? =
+            userRepository.findByUsername(username).let {
+                UsernamePasswordAuthenticationToken(
+                        it, it.password, it.authorities)
+            }
 }

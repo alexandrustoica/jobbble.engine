@@ -23,7 +23,7 @@ data class User
         val email: String = "john@gmail.com",
         val name: String = "John",
         val profileImageUrl: String = "",
-        val age: String = "",
+        val age: Int = 0,
         @JsonIgnore @DBRef private val skills: List<Skill> = listOf(),
         private val role: UserRole = UserRole.STUDENT) : UserDetails {
 
