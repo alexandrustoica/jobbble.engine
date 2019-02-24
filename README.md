@@ -8,7 +8,9 @@ The software is distributed free under an open source license in hopes that will
 
 ### Setup & Run
 
-Note: You might need to change the `ip` and `port` from [`applications.properties`](/src/main/resources/application.properties).
+Please read the [Database.md](/docs/Database.md) document for details on how to set up your local database.
+
+> Note: You might need to change the `ip` and `port` from [`applications.properties`](/src/main/resources/application.properties).
 
 #### Run with Gradle
 
